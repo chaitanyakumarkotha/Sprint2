@@ -1,72 +1,151 @@
 package com.cg.GreatOutdoor.entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Range;
 
 @Entity
-@Table(name="product_user_table")
+@Table(name="Product")
 public class Product {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Range(min=1,max=Long.MAX_VALUE)
-	private int product_user_id;
+
 	
-	@Column(length=10)
+	@Id
+	@Column(name = "productId")
+	@Range(min = 1, max = Long.MAX_VALUE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private long productId;
 	
-	@ManyToOne
-	@JoinColumn(name="userId")
-	private User user ;
+	@Column(length=5)
+	private double price;
 	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public int getProduct_user_id() {
-		return product_user_id;
-	}
-	public void setProduct_user_id(int product_user_id) {
-		this.product_user_id = product_user_id;
-	}
-	public Long getProductId() {
-		return productId;
-	}
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
+	@Column(length=7)
+	private String colour;
 	
-	public Product(Long productId) {
+	@Column(length=10)
+	private String dimension;
+	
+	@Column(length=15)
+	private String specification;
+	
+	@Column(length=10)
+	private String manufacturer;
+	
+	@Column(length=3)
+	private int quantity;
+	
+	@Column(length=10)
+	private int productCategory;
+	
+	@Column(length=10)
+	private String productName;
+	
+
+	
+	public Product( double price, String colour, String dimension, String specification,
+			String manufacturer, int quantity, int productCategory, String productName) {
 		super();
 		
-		this.productId = productId;
-		
+		this.price = price;
+		this.colour = colour;
+		this.dimension = dimension;
+		this.specification = specification;
+		this.manufacturer = manufacturer;
+		this.quantity = quantity;
+		this.productCategory = productCategory;
+		this.productName = productName;
 	}
+
 	public Product() {
 		super();
 	}
+	
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getColour() {
+		return colour;
+	}
+
+	public void setColour(String colour) {
+		this.colour = colour;
+	}
+
+	public String getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(int productCategory) {
+		this.productCategory = productCategory;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [product_user_id=" + product_user_id + ", productId=" + productId + ", user=" + user + "]";
+		return "Product [productId=" + productId + ", price=" + price + ", colour=" + colour + ", dimension="
+				+ dimension + ", specification=" + specification + ", manufacturer=" + manufacturer + ", quantity="
+				+ quantity + ", productCategory=" + productCategory + ", productName=" + productName + "]";
 	}
+
+
+
 	
 
-    
-
+	
 }

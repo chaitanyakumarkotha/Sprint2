@@ -11,12 +11,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.cg.GreatOutdoor.dao.IAllProductDao;
+import com.cg.GreatOutdoor.dao.IProductDao;
 import com.cg.GreatOutdoor.dao.IUserDao;
 import com.cg.GreatOutdoor.dao.UserDaoImpl;
 import com.cg.GreatOutdoor.entity.Address;
-import com.cg.GreatOutdoor.entity.AllProducts;
 import com.cg.GreatOutdoor.entity.Product;
+import com.cg.GreatOutdoor.entity.WishlistProduct;
 import com.cg.GreatOutdoor.entity.User;
 
 @SpringBootApplication

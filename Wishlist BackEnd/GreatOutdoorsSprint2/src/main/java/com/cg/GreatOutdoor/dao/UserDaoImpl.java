@@ -8,8 +8,6 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
-
-import com.cg.GreatOutdoor.entity.AllProducts;
 import com.cg.GreatOutdoor.entity.User;
 @Repository
 @Transactional
@@ -28,10 +26,9 @@ public class UserDaoImpl implements IUserDao{
       **********************************/
 	@Override
 	public void create(User user) {
-		// TODO Auto-generated method stub
-		System.out.println("INSIDE create user function");
+
 		entityManager.persist(user);
-		
+
 	}
 	
 	
@@ -44,12 +41,12 @@ public class UserDaoImpl implements IUserDao{
      *created date   26-APR-2020
      **********************************/
 	@Override
-	public List reterive() {
-		// TODO Auto-generated method stub
-		String allUserQuery="SELECT allusers FROM User allusers";
-		TypedQuery<User> query=entityManager.createQuery(allUserQuery,User.class);
+	public List<User> reterive() {
+
+		String UserQuery = "SELECT users FROM User users";
+		TypedQuery<User> query = entityManager.createQuery(UserQuery, User.class);
 		return query.getResultList();
-		
+
 	}
 	
 	
@@ -64,9 +61,9 @@ public class UserDaoImpl implements IUserDao{
 **********************************/
 	@Override
 	public User findById(long userId) {
-		// TODO Auto-generated method stub
-		User user= entityManager.find(User.class, userId);
-		System.out.println(user);
+
+		User user = entityManager.find(User.class, userId);
+
 		return user;
 	}
 
@@ -81,17 +78,13 @@ public class UserDaoImpl implements IUserDao{
 **********************************/
 	@Override
 	public boolean checkUserId(long userId) {
-		// TODO Auto-generated method stub
-		System.out.println("IN USERDAO        UID= "+userId);
-		if(entityManager.find(User.class, userId)!=null)
-		{  System.out.println("true");
+
+		if (entityManager.find(User.class, userId) != null) {
+			
 			return true;
-		}
-		else
-		{
-		return false;
+		} else {
+			return false;
 		}
 	}
-
    
 }

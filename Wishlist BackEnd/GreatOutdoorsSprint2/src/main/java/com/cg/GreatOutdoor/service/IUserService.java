@@ -7,7 +7,7 @@ import com.cg.GreatOutdoor.exception.UserException;
 
 public interface IUserService {
 	public void create(User user) throws UserException;
-	public List retrive() throws UserException;
+	public List<User> retrive() throws UserException;
 	public User findById(long id) throws UserException;
 	
 }
