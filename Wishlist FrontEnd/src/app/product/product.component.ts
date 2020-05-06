@@ -26,7 +26,14 @@ export class ProductComponent implements OnInit {
    )
   }
 
-  likeProduct(productId:number, i:number){
+/**********************************
+*Method:        likeProduct(productId:number)
+*description:   like the particular product by the user
+*paramenter :   it accept productId as a parameter
+*created by:    Raman Pandey
+*created date:  21-APR-2020
+**********************************/
+  likeProduct(productId:number){
     
     console.log(productId);
     this.wishlist.likeProduct(productId).subscribe(data=>{

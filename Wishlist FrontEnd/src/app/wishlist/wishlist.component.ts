@@ -22,6 +22,14 @@ export class WishlistComponent implements OnInit {
       }
     );
   }
+
+/**********************************
+*Method:        removeFromWishlist(productId:number)
+*description:   remove the product from wishlist of particular user
+*paramenter :   it accept productId as a parameter
+*created by:    Raman Pandey
+*created date:  21-APR-2020
+**********************************/
   removeFromWishlist(product:Product)
   {
       console.log(product.productId);
