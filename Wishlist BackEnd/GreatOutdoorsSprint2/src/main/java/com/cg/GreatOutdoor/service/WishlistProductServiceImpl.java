@@ -14,14 +14,17 @@ import com.cg.GreatOutdoor.exception.ProductException;
 public class WishlistProductServiceImpl implements IWishlistProductService {
 
 	@Autowired
-	private IWishlistProductDao productDao;
+	private IWishlistProductDao wishlistProductDao;
 
 	@Override
-	public void create(WishlistProduct product) throws ProductException {
-
-		try {
-			productDao.create(product);
-		} catch (Exception exception) {
+	public boolean create(WishlistProduct product) throws ProductException {
+        boolean status=wishlistProductDao.create(product);
+		if(status)
+		{
+			return true;
+		}
+		else
+		{
 			throw new ProductException("Unable to insert in wishlist");
 		}
 	}
@@ -29,7 +32,7 @@ public class WishlistProductServiceImpl implements IWishlistProductService {
 	@Override
 	public List<Product> retrive(long userId) throws ProductException {
 
-		List<Product> ProductList = productDao.retrive(userId);
+		List<Product> ProductList = wishlistProductDao.retrive(userId);
 		if (ProductList.isEmpty()) {
 			throw new ProductException("Wishlist is empty");
 		} else {
@@ -40,23 +43,30 @@ public class WishlistProductServiceImpl implements IWishlistProductService {
 	@Override
 	public boolean checkId(long userId, long productId) throws ProductException {
 
-		boolean result = productDao.checkId(userId, productId);
+		boolean result = wishlistProductDao.checkId(userId, productId);
 		if (result) {
-			return true;
-		} else {
+			throw new ProductException("PoductId already exist in wishlist");
 
-			throw new ProductException("UserId or ProductId is not valid");
+		} else {
+			return false;
+
 		}
 	}
 
 	@Override
-	public void deleteProduct(long userId, long productId) throws ProductException {
+	public boolean deleteProduct(long userId, long productId) throws ProductException {
 
-		try {
-			productDao.deleteProduct(userId, productId);
-		} catch (Exception exception) {
-			throw new ProductException("Not able to delete Product");
-		}
-	}
+		 boolean status=wishlistProductDao.deleteProduct(userId, productId);
+		 if(status)
+		 {
+			 return true;
+		 }
+		 else
+		 {
+			 System.out.println("last");
+			 throw new ProductException("Not able to delete Product"); 
+		 }
+	
+	}	
 
 }

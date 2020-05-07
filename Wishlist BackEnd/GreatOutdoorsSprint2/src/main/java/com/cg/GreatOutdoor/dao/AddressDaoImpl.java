@@ -23,10 +23,16 @@ public class AddressDaoImpl implements IAddressDao{
      *created date:  27-APR-2020
       **********************************/
 	@Override
-	public void create(Address address,long userId) {
+	public boolean create(Address address,long userId) {
 		
 		User user=entityManager.find(User.class,userId);
-		user.addAddress(address);
+		if(user != null)
+		{
+			user.addAddress(address);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	

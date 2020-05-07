@@ -16,13 +16,16 @@ public class UserServiceImpl implements IUserService {
 	private IUserDao userDao;
 
 	@Override
-	public void create(User user) throws UserException {
-
-		try {
-			userDao.create(user);
-		} catch (Exception exception) {
-			throw new UserException("Unable to create user");
-		}
+	public boolean create(User user) throws UserException {
+         boolean status=userDao.create(user);
+         if(status)
+         {
+        	 return true;
+         }
+         else
+         {	 
+		   throw new UserException("Unable to create user");
+		  }
 
 	}
 
@@ -30,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	public List<User> retrive() throws UserException {
 
 		List<User> userList = userDao.reterive();
-		if (userList.size() == 0) {
+		if (userList.isEmpty()) {
 			throw new UserException("User List is Empty");
 		} else {
 			return userList;

@@ -27,11 +27,11 @@ import com.cg.GreatOutdoor.service.IUserService;
 @RestController
 public class WishlistController {
 	@Autowired
-	private IProductService allProductService;
+	private IProductService ProductService;
 	@Autowired
 	private IUserService userService;
 	@Autowired
-	private IWishlistProductService productService;
+	private IWishlistProductService wishlistProductService;
  
 	@Autowired
 	private IAddressService addressService;
@@ -43,7 +43,7 @@ public class WishlistController {
 	 */
 	@PostMapping(value="/product",consumes="application/json")
 	public String addProduct(@RequestBody Product product) throws ProductException
-	{   allProductService.create(product);
+	{   ProductService.create(product);
 		return "Product Added Successfully";
 	}
 	
@@ -54,7 +54,7 @@ public class WishlistController {
 	@GetMapping(value="/product")
 	public List displayAllProducts() throws ProductException
 	{  
-		return allProductService.retrive();
+		return ProductService.retrive();
 	}
 	
 	/*
@@ -63,7 +63,7 @@ public class WishlistController {
 	@GetMapping(value="/product/{id}")
 	public Product productById(@PathVariable Long id) throws ProductException 
 	{
-	        Product product=allProductService.findById(id);
+	        Product product=ProductService.findById(id);
 	    	 return product;
 		   
 	}
@@ -125,11 +125,11 @@ public class WishlistController {
    @GetMapping(value="/user/{userId}/{productId}")
    public void addToWislist(@PathVariable long userId,@PathVariable long productId) throws ProductException, UserException
    {   
-	    if(productService.checkId(userId, productId))
+	    if(!wishlistProductService.checkId(userId, productId))
 	    {
 	    	WishlistProduct product=new WishlistProduct(productId);
 	    	product.setUser(userService.findById(userId));
-	    	productService.create(product);
+	    	wishlistProductService.create(product);
 	    }  
 	    
    }
@@ -140,7 +140,7 @@ public class WishlistController {
    @DeleteMapping(value="/user/{userId}/{productId}")
    public void deleteProduct(@PathVariable long userId,@PathVariable long productId) throws ProductException
    {   
-	   productService.deleteProduct(userId, productId);
+	   wishlistProductService.deleteProduct(userId, productId);
 	 
    }
    
@@ -152,7 +152,7 @@ public class WishlistController {
 	public List fetchProduct(@PathVariable long userId) throws ProductException
 	{  
 	    
-	    return productService.retrive(userId);
+	    return wishlistProductService.retrive(userId);
 	}
   
    

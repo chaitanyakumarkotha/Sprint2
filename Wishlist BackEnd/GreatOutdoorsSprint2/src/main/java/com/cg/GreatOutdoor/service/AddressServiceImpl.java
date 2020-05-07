@@ -15,15 +15,14 @@ public class AddressServiceImpl implements IAddressService {
 	private IAddressDao addressDao;
 	
 	@Override
-	public void create(Address address,long userId) throws AddressException {
-		// TODO Auto-generated method stub
-		try {
-		addressDao.create(address,userId);
-		}
-		catch(Exception exception)
-		{
+	public boolean create(Address address,long userId) throws AddressException {
+
+		boolean status=addressDao.create(address,userId);
+		if(status)
+			return true;
+		else
 			throw new AddressException("Unable to create address");
-		}
+		
 
 	}
 

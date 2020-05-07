@@ -8,12 +8,12 @@ import com.cg.GreatOutdoor.exception.ProductException;
 
 public interface IWishlistProductDao {
 
-	public void create(WishlistProduct product);
+	public boolean create(WishlistProduct product);
 
 	public List<Product> retrive(long userId);
 
 	public boolean checkId(long userId, long productId) throws ProductException;
 
-	public void deleteProduct(long userId, long productId);
+	public boolean deleteProduct(long userId, long productId);
 
 }

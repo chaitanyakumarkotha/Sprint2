@@ -1,5 +1,7 @@
 package com.cg.GreatOutdoor.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "addressTable")
-public class Address {
+public class Address implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -16,7 +16,7 @@ export class WishlistService {
    *created date:  21-APR-2020
     **********************************/
   loadWishlistProduct(): Observable<any> {
-  let url = "http://localhost:1136/wishlistproduct/59";
+  let url = "http://localhost:1136/wishlistproduct/1";
 
     return this.http.get(url);
   
@@ -32,7 +32,7 @@ export class WishlistService {
   deleteWishlistProduct(productId:number):Observable<any>
   {
     console.log("in service pid=" + productId);
-    let url = "http://localhost:1136/user/59/" + productId;
+    let url = "http://localhost:1136/user/1/" + productId;
     return this.http.delete(url);
   }
 
@@ -45,7 +45,7 @@ export class WishlistService {
   loadAllProduct():Observable<any>
   {
     console.log("inside loadAllProducts");
-    let url="http://localhost:1136/allproduct/59";
+    let url="http://localhost:1136/product";
     return this.http.get(url);
   }
 /**********************************
@@ -56,7 +56,7 @@ export class WishlistService {
 *created date:  21-APR-2020
 **********************************/
   likeProduct(productId:number):Observable<any>{
-    let url = "http://localhost:1136/user/59/" + productId;
+    let url = "http://localhost:1136/user/1/" + productId;
     return this.http.get(url);
   }
   

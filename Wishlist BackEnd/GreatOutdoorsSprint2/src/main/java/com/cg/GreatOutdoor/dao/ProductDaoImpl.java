@@ -24,9 +24,13 @@ public class ProductDaoImpl implements IProductDao {
 	 **********************************/
 
 	@Override
-	public void create(Product product) {
-		
+	public boolean create(Product product) {
+
 		entityManager.persist(product);
+		if (entityManager.find(Product.class, product.getProductId()) != null) {
+			return true;
+		} else
+			return false;
 	}
 
 	/**********************************

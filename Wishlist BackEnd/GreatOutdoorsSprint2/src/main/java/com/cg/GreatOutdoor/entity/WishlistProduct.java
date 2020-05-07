@@ -26,7 +26,7 @@ public class WishlistProduct {
 	@JoinColumn(name = "userId")
 	private User user;
 
-	public WishlistProduct(Long productId) {
+	public WishlistProduct(long productId) {
 		super();
 
 		this.productId = productId;
@@ -53,11 +53,11 @@ public class WishlistProduct {
 		this.productUserId = productUserId;
 	}
 
-	public Long getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Long productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 

@@ -15,23 +15,23 @@ import com.cg.GreatOutdoor.exception.ProductException;
 public class ProductServiceImpl implements IProductService {
 
 	@Autowired
-	private IProductDao allProductDao;
+	private IProductDao productDao;
 
 	@Override
-	public void create(Product product) throws ProductException {
+	public boolean create(Product product) throws ProductException {
 
-		try {
-			allProductDao.create(product);
-		} catch (Exception e) {
-			throw new ProductException("Product not saved successfully");
-		}
+		boolean status=productDao.create(product);
+		if(status)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public List<Product> retrive() throws ProductException {
 
-		List<Product> productList = allProductDao.retrive();
-		if (productList.size() == 0) {
+		List<Product> productList =productDao.retrive();
+		if (productList.isEmpty()) {
 			throw new ProductException("Product List is Empty");
 		} else {
 			return productList;
@@ -42,7 +42,7 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public Product findById(long id) throws ProductException {
 
-		Product product = allProductDao.findById(id);
+		Product product = productDao.findById(id);
 		if (product == null) {
 			throw new ProductException("Product not found");
 		} else {

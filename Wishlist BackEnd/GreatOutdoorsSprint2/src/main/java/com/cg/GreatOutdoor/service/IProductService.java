@@ -7,7 +7,7 @@ import com.cg.GreatOutdoor.exception.ProductException;
 
 
 public interface IProductService {
-	public void create(Product product) throws ProductException;
+	public boolean create(Product product) throws ProductException;
 	public List<Product> retrive() throws ProductException;
 	public Product findById(long id) throws ProductException;
 }

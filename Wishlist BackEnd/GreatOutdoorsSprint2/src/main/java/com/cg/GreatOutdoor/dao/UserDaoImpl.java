@@ -8,6 +8,8 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+
+import com.cg.GreatOutdoor.entity.Product;
 import com.cg.GreatOutdoor.entity.User;
 @Repository
 @Transactional
@@ -25,9 +27,13 @@ public class UserDaoImpl implements IUserDao{
      *created date:  26-APR-2020
       **********************************/
 	@Override
-	public void create(User user) {
+	public boolean create(User user) {
 
 		entityManager.persist(user);
+		if (entityManager.find(User.class, user.getUserId()) != null) {
+			return true;
+		} else
+			return false;
 
 	}
 	

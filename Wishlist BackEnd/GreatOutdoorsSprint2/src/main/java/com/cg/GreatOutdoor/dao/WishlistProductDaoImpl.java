@@ -36,9 +36,13 @@ public class WishlistProductDaoImpl implements IWishlistProductDao{
         **********************************/
       
 	@Override
-	public void create(WishlistProduct product) {
+	public boolean create(WishlistProduct product) {
 
 		entityManager.persist(product);
+		if (entityManager.find(WishlistProduct.class, product.getProductUserId()) != null) {
+			return true;
+		} else
+			return false;
 
 	}
 
@@ -82,26 +86,22 @@ public class WishlistProductDaoImpl implements IWishlistProductDao{
 	@Override
 	public boolean checkId(long userId, long productId) throws ProductException {
 		if (userDao.checkUserId(userId) == true && ProductDao.checkProductId(productId) == true) {
-			String productQuery = "SELECT product FROM WishlistProduct product WHERE  product.user.userId=:userId  AND product.productId=:productId";
-			TypedQuery<WishlistProduct> query = entityManager.createQuery(productQuery, WishlistProduct.class);
-			query.setParameter("userId", userId);
-			query.setParameter("productId", productId);
-
-			if (query.getResultList().size() == 0) {
-				return true;
-			} else {
-				throw new ProductException("Product ID already Exist in Wishlist");
-				// return false;
+			System.out.println("2");
+			String str = "SELECT product.user.userId FROM WishlistProduct product";
+			TypedQuery<Long> query = entityManager.createQuery(str, Long.class);
+			List<Long> userIdList = query.getResultList();
+			if (userIdList.contains(userId)) {
+				System.out.println("3");
+				String str2 = "SELECT product.productId FROM WishlistProduct product WHERE product.user.userId=:userId";
+				TypedQuery<Long> query2 = entityManager.createQuery(str2, Long.class);
+				query2.setParameter("userId", userId);
+				List<Long> productList = query2.getResultList();
+				if (productList.contains(productId)) {
+					return true;
+				}
 			}
-
-		} else if (userDao.checkUserId(userId) == true && ProductDao.checkProductId(productId) == false) {
-			return false;
-		} else if (userDao.checkUserId(userId) == false && ProductDao.checkProductId(productId) == true) {
-			return false;
-		} else {
-
-			return false;
-		}
+				}
+		return false;
 
 	}
 	
@@ -117,19 +117,37 @@ public class WishlistProductDaoImpl implements IWishlistProductDao{
      *created date     21-APR-2020
 **********************************/
 	@Override
-	public void deleteProduct(long userId, long productId) {
+	public boolean deleteProduct(long userId, long productId) {
+		System.out.println("1");
+		if (userDao.checkUserId(userId) == true && ProductDao.checkProductId(productId) == true) {
+			System.out.println("2");
+			String str = "SELECT product.user.userId FROM WishlistProduct product";
+			TypedQuery<Long> query = entityManager.createQuery(str, Long.class);
+			List<Long> userIdList = query.getResultList();
+			if (userIdList.contains(userId)) {
+				System.out.println("3");
+				String str2 = "SELECT product.productId FROM WishlistProduct product WHERE product.user.userId=:userId";
+				TypedQuery<Long> query2 = entityManager.createQuery(str2, Long.class);
+				query2.setParameter("userId", userId);
+				List<Long> productList = query2.getResultList();
+				if (productList.contains(productId)) {
+					System.out.println("4");
+					String productQuery = "SELECT product FROM WishlistProduct product WHERE  product.user.userId=:userId  AND product.productId=:productId";
+					TypedQuery<WishlistProduct> query3 = entityManager.createQuery(productQuery, WishlistProduct.class);
+					query3.setParameter("userId", userId);
+					query3.setParameter("productId", productId);
+					WishlistProduct product = query3.getSingleResult();
+					entityManager.remove(product);
+					return true;
+				}
 
-		String productQuery = "SELECT product FROM WishlistProduct product WHERE  product.user.userId=:userId  AND product.productId=:productId";
-		TypedQuery<WishlistProduct> query = entityManager.createQuery(productQuery, WishlistProduct.class);
-		query.setParameter("userId", userId);
-		query.setParameter("productId", productId);
-		WishlistProduct product = query.getSingleResult();
-		entityManager.remove(product);
+			}
+
+		}
+		System.out.println("5");
+		return false;
 
 	}
-
-
-   
 }
 	
 

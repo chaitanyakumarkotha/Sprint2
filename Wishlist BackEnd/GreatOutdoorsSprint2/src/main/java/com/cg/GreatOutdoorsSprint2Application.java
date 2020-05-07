@@ -1,4 +1,4 @@
-package com.cg.GreatOutdoor;
+package com.cg;
 
 
 
