@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { WishlistService } from '../wishlist.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist',
@@ -34,9 +35,11 @@ export class WishlistComponent implements OnInit {
   {
       console.log(product.productId);
      this.wishlistservice.deleteWishlistProduct(product.productId).subscribe(data=>{
-       alert("Record Deleted");
-       this.ngOnInit();
+      alert("Record Deleted");
+        this.ngOnInit();
      })
+     
+
   }
   
  
